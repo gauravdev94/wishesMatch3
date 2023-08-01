@@ -349,25 +349,54 @@ function make_win_screen() {
 	follow_text.y = sign_up_image.y - follow_text.height - 10;
 	follow_text.visible = false;
 
-	follow_image = game.add.sprite(0, 0, "follow");
-	follow_image.width = plate.width - 150;
+	follow_image = game.add.sprite(0, 0, "facebook");
+	follow_image.width = 85;
 	follow_image.height = 85;
-	follow_image.x = sign_up_image.x;
-	follow_image.y = follow_text.y - follow_image.height;
+	follow_image.x = sign_up_image.x+5;
+	follow_image.y = follow_text.y - follow_image.height-20;
 	follow_image.visible = false;
 	
-	follow_button = game.add.button(0, 0, '', function() { follow_image.loadTexture("follow"); window.open('https://m.facebook.com/Wishesgives', '_blank'); });
-	follow_button.x = follow_image.x;
+	follow_button = game.add.button(0, 0, '', function() { follow_image.loadTexture("facebook"); window.open('https://m.facebook.com/Wishesgives', '_blank'); });
+	follow_button.x = follow_image.x+5;
 	follow_button.y = follow_image.y;
 	follow_button.height = follow_image.height;
 	follow_button.width = follow_image.width;
 	follow_button.visible = false;
 
+	follow_image2 = game.add.sprite(0, 0, "instagram");
+	follow_image2.width = 85;
+	follow_image2.height = 85;
+	follow_image2.x = sign_up_image.x+120;
+	follow_image2.y = follow_text.y - follow_image.height-20;
+	follow_image2.visible = false;
+	
+	follow_button2 = game.add.button(0, 0, '', function() { follow_image2.loadTexture("instagram"); window.open('https://www.instagram.com/wishesgives/', '_blank'); });
+	follow_button2.x = follow_image2.x;
+	follow_button2.y = follow_image2.y;
+	follow_button2.height = follow_image2.height;
+	follow_button2.width = follow_image2.width;
+	follow_button2.visible = false;
+
+	
+	follow_image3 = game.add.sprite(0, 0, "youtube");
+	follow_image3.width = 85;
+	follow_image3.height = 85;
+	follow_image3.x = sign_up_image.x+230;
+	follow_image3.y = follow_text.y - follow_image.height-20;
+	follow_image3.visible = false;
+	
+	follow_button3 = game.add.button(0, 0, '', function() { follow_image3.loadTexture("youtube"); window.open('https://www.youtube.com/channel/UC3u7ffTuaJ5aQ-2xCVKk4oQ?app=desktop', '_blank'); });
+	follow_button3.x = follow_image3.x;
+	follow_button3.y = follow_image3.y;
+	follow_button3.height = follow_image3.height;
+	follow_button3.width = follow_image3.width;
+	follow_button3.visible = false;
+
 	var fover = function() {
-		follow_image.loadTexture("follow_hover");
+		// follow_image.loadTexture("follow_hover");
 	}
 	var fout = function() {
-		follow_image.loadTexture("follow");
+		// follow_image.loadTexture("facebook");
 	}
 	follow_button.events.onInputOver.add(fover, this);
 	follow_button.events.onInputOut.add(fout, this);
@@ -383,6 +412,10 @@ function hide_win_screen() {
 	sign_up_button.visible = false;
 	follow_image.visible = false;
 	follow_button.visible = false;
+	follow_image2.visible = false;
+	follow_button2.visible = false;
+	follow_image3.visible = false;
+	follow_button3.visible = false;
 	win_text.visible = false;
 	follow_text.visible = false;
 	win_banner_text.visible = false;
@@ -413,6 +446,16 @@ function show_win_screen() {
 	follow_image.bringToTop();
 	follow_button.visible = true;
 	follow_button.bringToTop();
+	follow_image2.visible = true;
+	follow_image2.bringToTop();
+	follow_button2.visible = true;
+	follow_button2.bringToTop();
+
+	follow_image3.visible = true;
+	follow_image3.bringToTop();
+	follow_button3.visible = true;
+	follow_button3.bringToTop();
+
 	win_text.visible = true;
 	win_text.parent.bringToTop(win_text);
 	follow_text.visible = true;
@@ -680,7 +723,7 @@ function spawnBoard() {
 }
 
 function selectGem(gem) {
-	console.log("select gems...")
+	console.log("select gems...",gem)
 	
 	if (allowInput) {
 		selectedGem = gem;
@@ -905,14 +948,19 @@ var tutorial = true;
 
 function boardRefilled() {
 	var canKill = false;
+	
 	for (var i = 0; i < BOARD_COLS; i++) {
 		for (var j = BOARD_ROWS - 1; j >= 0; j--) {
 			var gem = getGem(i, j);
+			
+			
 
 			if(gem === null) return;
 			if (gem.dirty) {
+				console.log("can kill...");
 				gem.dirty = false;
 				canKill = checkAndKillGemMatches(gem) || canKill;
+				
 			}
 		}
 	}
@@ -941,4 +989,6 @@ function boardRefilled() {
 	}
 }
 }
+
+
 
